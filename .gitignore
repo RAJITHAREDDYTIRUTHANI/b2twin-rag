@@ -1,0 +1,25 @@
+# Ignore environment and secret files
+.env
+*.env
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# VSCode or IDE configs
+.vscode/
+.idea/
+
+# Logs and temp files
+*.log
+tmp/
+cache/
+.env
+__pycache__/

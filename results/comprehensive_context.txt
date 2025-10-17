@@ -1,0 +1,63 @@
+
+    BIOSPHERE 2 ENVIRONMENTAL CONTROL SYSTEM ANALYSIS
+    
+    This analysis covers 6 different sensor systems monitoring the Rainforest MiscSAV1 area:
+    
+    1. TEMPERATURE SENSOR (RFTESCOSUPTMP):
+       - Units: Fahrenheit
+       - Readings: 507
+       - Time Range:  2025/09/21 00:00:01 to  2025/09/28 23:45:02
+       - Value Range: 66.13694763183594°F to 86.37889099121094°F
+    
+    2. FAN DIRECTION COMMAND (RFTESCOVFDDIRCMD):
+       - Control: Exhaust/Injection modes
+       - Readings: 2
+       - Time Range:  2025/09/24 12:57:52 to  2025/09/24 13:48:34
+    
+    3. FAN OUTPUT CONTROL (RFTESCOVFDOUT):
+       - Control: ON/OFF states
+       - Readings: 507
+       - Time Range:  2025/09/21 00:00:01 to  2025/09/28 23:45:02
+    
+    4. FAN STATUS MONITORING (RFTESCOVFDSTS):
+       - Status: ON/OFF states
+       - Readings: 2
+       - Time Range:  2025/09/24 12:57:52 to  2025/09/24 13:48:34
+    
+    5. VALVE COMMAND CONTROL (RFTESCOVLVCMD):
+       - Control: ON/OFF commands
+       - Readings: 2
+       - Time Range:  2025/09/24 12:57:52 to  2025/09/24 13:48:34
+    
+    6. VALVE LIMIT SWITCH (RFTESCOVLVLMTSW):
+       - Status: CLOSED/OPEN positions
+       - Readings: 2
+       - Time Range:  2025/09/24 12:57:52 to  2025/09/24 13:48:34
+    
+    SAMPLE DATA FROM EACH SYSTEM:
+    
+TEMPERATURE SAMPLE:
+  Record 1: {'ID': 249609, ' TIMESTAMP': ' 2025/09/21 00:00:01', ' TRENDFLAGS': 0, ' STATUS': 0, ' VALUE': 77.21249389648438, ' TRENDFLAGS_TAG': ' { }', ' STATUS_TAG': ' {ok}'}
+  Record 2: {'ID': 249610, ' TIMESTAMP': ' 2025/09/21 00:15:01', ' TRENDFLAGS': 0, ' STATUS': 0, ' VALUE': 77.1624755859375, ' TRENDFLAGS_TAG': ' { }', ' STATUS_TAG': ' {ok}'}
+  Record 3: {'ID': 249611, ' TIMESTAMP': ' 2025/09/21 00:30:01', ' TRENDFLAGS': 0, ' STATUS': 0, ' VALUE': 77.18331146240234, ' TRENDFLAGS_TAG': ' { }', ' STATUS_TAG': ' {ok}'}
+
+FAN_DIRECTION SAMPLE:
+  Record 1: {'ID': 701, ' TIMESTAMP': ' 2025/09/24 12:57:52', ' TRENDFLAGS': 1, ' STATUS': 0, ' VALUE': 0, ' TRENDFLAGS_TAG': ' {start}', ' STATUS_TAG': ' {ok}'}
+  Record 2: {'ID': 702, ' TIMESTAMP': ' 2025/09/24 13:48:34', ' TRENDFLAGS': 1, ' STATUS': 0, ' VALUE': 0, ' TRENDFLAGS_TAG': ' {start}', ' STATUS_TAG': ' {ok}'}
+
+FAN_OUTPUT SAMPLE:
+  Record 1: {'ID': 249609, ' TIMESTAMP': ' 2025/09/21 00:00:01', ' TRENDFLAGS': 0, ' STATUS': 32, ' VALUE': 0, ' TRENDFLAGS_TAG': ' { }', ' STATUS_TAG': ' {overridden}'}
+  Record 2: {'ID': 249610, ' TIMESTAMP': ' 2025/09/21 00:15:01', ' TRENDFLAGS': 0, ' STATUS': 32, ' VALUE': 0, ' TRENDFLAGS_TAG': ' { }', ' STATUS_TAG': ' {overridden}'}
+  Record 3: {'ID': 249611, ' TIMESTAMP': ' 2025/09/21 00:30:01', ' TRENDFLAGS': 0, ' STATUS': 32, ' VALUE': 0, ' TRENDFLAGS_TAG': ' { }', ' STATUS_TAG': ' {overridden}'}
+
+FAN_STATUS SAMPLE:
+  Record 1: {'ID': 761, ' TIMESTAMP': ' 2025/09/24 12:57:52', ' TRENDFLAGS': 1, ' STATUS': 0, ' VALUE': 0, ' TRENDFLAGS_TAG': ' {start}', ' STATUS_TAG': ' {ok}'}
+  Record 2: {'ID': 762, ' TIMESTAMP': ' 2025/09/24 13:48:34', ' TRENDFLAGS': 1, ' STATUS': 0, ' VALUE': 0, ' TRENDFLAGS_TAG': ' {start}', ' STATUS_TAG': ' {ok}'}
+
+VALVE_COMMAND SAMPLE:
+  Record 1: {'ID': 741, ' TIMESTAMP': ' 2025/09/24 12:57:52', ' TRENDFLAGS': 1, ' STATUS': 0, ' VALUE': 0, ' TRENDFLAGS_TAG': ' {start}', ' STATUS_TAG': ' {ok}'}
+  Record 2: {'ID': 742, ' TIMESTAMP': ' 2025/09/24 13:48:34', ' TRENDFLAGS': 1, ' STATUS': 0, ' VALUE': 0, ' TRENDFLAGS_TAG': ' {start}', ' STATUS_TAG': ' {ok}'}
+
+VALVE_LIMIT SAMPLE:
+  Record 1: {'ID': 741, ' TIMESTAMP': ' 2025/09/24 12:57:52', ' TRENDFLAGS': 1, ' STATUS': 0, ' VALUE': 0, ' TRENDFLAGS_TAG': ' {start}', ' STATUS_TAG': ' {ok}'}
+  Record 2: {'ID': 742, ' TIMESTAMP': ' 2025/09/24 13:48:34', ' TRENDFLAGS': 1, ' STATUS': 0, ' VALUE': 0, ' TRENDFLAGS_TAG': ' {start}', ' STATUS_TAG': ' {ok}'}

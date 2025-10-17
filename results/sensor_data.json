@@ -1,0 +1,284 @@
+{
+  "temperature": {
+    "total_readings": 507,
+    "time_range": " 2025/09/21 00:00:01 to  2025/09/28 23:45:02",
+    "sample_data": [
+      {
+        "ID": 249609,
+        " TIMESTAMP": " 2025/09/21 00:00:01",
+        " TRENDFLAGS": 0,
+        " STATUS": 0,
+        " VALUE": 77.21249389648438,
+        " TRENDFLAGS_TAG": " { }",
+        " STATUS_TAG": " {ok}"
+      },
+      {
+        "ID": 249610,
+        " TIMESTAMP": " 2025/09/21 00:15:01",
+        " TRENDFLAGS": 0,
+        " STATUS": 0,
+        " VALUE": 77.1624755859375,
+        " TRENDFLAGS_TAG": " { }",
+        " STATUS_TAG": " {ok}"
+      },
+      {
+        "ID": 249611,
+        " TIMESTAMP": " 2025/09/21 00:30:01",
+        " TRENDFLAGS": 0,
+        " STATUS": 0,
+        " VALUE": 77.18331146240234,
+        " TRENDFLAGS_TAG": " { }",
+        " STATUS_TAG": " {ok}"
+      },
+      {
+        "ID": 249612,
+        " TIMESTAMP": " 2025/09/21 00:45:01",
+        " TRENDFLAGS": 0,
+        " STATUS": 0,
+        " VALUE": 77.06658935546875,
+        " TRENDFLAGS_TAG": " { }",
+        " STATUS_TAG": " {ok}"
+      },
+      {
+        "ID": 249613,
+        " TIMESTAMP": " 2025/09/21 01:00:02",
+        " TRENDFLAGS": 0,
+        " STATUS": 0,
+        " VALUE": 77.0582504272461,
+        " TRENDFLAGS_TAG": " { }",
+        " STATUS_TAG": " {ok}"
+      }
+    ],
+    "columns": [
+      "ID",
+      " TIMESTAMP",
+      " TRENDFLAGS",
+      " STATUS",
+      " VALUE",
+      " TRENDFLAGS_TAG",
+      " STATUS_TAG"
+    ],
+    "value_stats": {
+      "min": 66.13694763183594,
+      "max": 86.37889099121094,
+      "mean": 75.86340321497569
+    }
+  },
+  "fan_direction": {
+    "total_readings": 2,
+    "time_range": " 2025/09/24 12:57:52 to  2025/09/24 13:48:34",
+    "sample_data": [
+      {
+        "ID": 701,
+        " TIMESTAMP": " 2025/09/24 12:57:52",
+        " TRENDFLAGS": 1,
+        " STATUS": 0,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " {start}",
+        " STATUS_TAG": " {ok}"
+      },
+      {
+        "ID": 702,
+        " TIMESTAMP": " 2025/09/24 13:48:34",
+        " TRENDFLAGS": 1,
+        " STATUS": 0,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " {start}",
+        " STATUS_TAG": " {ok}"
+      }
+    ],
+    "columns": [
+      "ID",
+      " TIMESTAMP",
+      " TRENDFLAGS",
+      " STATUS",
+      " VALUE",
+      " TRENDFLAGS_TAG",
+      " STATUS_TAG"
+    ],
+    "value_stats": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0
+    }
+  },
+  "fan_output": {
+    "total_readings": 507,
+    "time_range": " 2025/09/21 00:00:01 to  2025/09/28 23:45:02",
+    "sample_data": [
+      {
+        "ID": 249609,
+        " TIMESTAMP": " 2025/09/21 00:00:01",
+        " TRENDFLAGS": 0,
+        " STATUS": 32,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " { }",
+        " STATUS_TAG": " {overridden}"
+      },
+      {
+        "ID": 249610,
+        " TIMESTAMP": " 2025/09/21 00:15:01",
+        " TRENDFLAGS": 0,
+        " STATUS": 32,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " { }",
+        " STATUS_TAG": " {overridden}"
+      },
+      {
+        "ID": 249611,
+        " TIMESTAMP": " 2025/09/21 00:30:01",
+        " TRENDFLAGS": 0,
+        " STATUS": 32,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " { }",
+        " STATUS_TAG": " {overridden}"
+      },
+      {
+        "ID": 249612,
+        " TIMESTAMP": " 2025/09/21 00:45:01",
+        " TRENDFLAGS": 0,
+        " STATUS": 32,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " { }",
+        " STATUS_TAG": " {overridden}"
+      },
+      {
+        "ID": 249613,
+        " TIMESTAMP": " 2025/09/21 01:00:02",
+        " TRENDFLAGS": 0,
+        " STATUS": 32,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " { }",
+        " STATUS_TAG": " {overridden}"
+      }
+    ],
+    "columns": [
+      "ID",
+      " TIMESTAMP",
+      " TRENDFLAGS",
+      " STATUS",
+      " VALUE",
+      " TRENDFLAGS_TAG",
+      " STATUS_TAG"
+    ],
+    "value_stats": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0
+    }
+  },
+  "fan_status": {
+    "total_readings": 2,
+    "time_range": " 2025/09/24 12:57:52 to  2025/09/24 13:48:34",
+    "sample_data": [
+      {
+        "ID": 761,
+        " TIMESTAMP": " 2025/09/24 12:57:52",
+        " TRENDFLAGS": 1,
+        " STATUS": 0,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " {start}",
+        " STATUS_TAG": " {ok}"
+      },
+      {
+        "ID": 762,
+        " TIMESTAMP": " 2025/09/24 13:48:34",
+        " TRENDFLAGS": 1,
+        " STATUS": 0,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " {start}",
+        " STATUS_TAG": " {ok}"
+      }
+    ],
+    "columns": [
+      "ID",
+      " TIMESTAMP",
+      " TRENDFLAGS",
+      " STATUS",
+      " VALUE",
+      " TRENDFLAGS_TAG",
+      " STATUS_TAG"
+    ],
+    "value_stats": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0
+    }
+  },
+  "valve_command": {
+    "total_readings": 2,
+    "time_range": " 2025/09/24 12:57:52 to  2025/09/24 13:48:34",
+    "sample_data": [
+      {
+        "ID": 741,
+        " TIMESTAMP": " 2025/09/24 12:57:52",
+        " TRENDFLAGS": 1,
+        " STATUS": 0,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " {start}",
+        " STATUS_TAG": " {ok}"
+      },
+      {
+        "ID": 742,
+        " TIMESTAMP": " 2025/09/24 13:48:34",
+        " TRENDFLAGS": 1,
+        " STATUS": 0,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " {start}",
+        " STATUS_TAG": " {ok}"
+      }
+    ],
+    "columns": [
+      "ID",
+      " TIMESTAMP",
+      " TRENDFLAGS",
+      " STATUS",
+      " VALUE",
+      " TRENDFLAGS_TAG",
+      " STATUS_TAG"
+    ],
+    "value_stats": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0
+    }
+  },
+  "valve_limit": {
+    "total_readings": 2,
+    "time_range": " 2025/09/24 12:57:52 to  2025/09/24 13:48:34",
+    "sample_data": [
+      {
+        "ID": 741,
+        " TIMESTAMP": " 2025/09/24 12:57:52",
+        " TRENDFLAGS": 1,
+        " STATUS": 0,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " {start}",
+        " STATUS_TAG": " {ok}"
+      },
+      {
+        "ID": 742,
+        " TIMESTAMP": " 2025/09/24 13:48:34",
+        " TRENDFLAGS": 1,
+        " STATUS": 0,
+        " VALUE": 0,
+        " TRENDFLAGS_TAG": " {start}",
+        " STATUS_TAG": " {ok}"
+      }
+    ],
+    "columns": [
+      "ID",
+      " TIMESTAMP",
+      " TRENDFLAGS",
+      " STATUS",
+      " VALUE",
+      " TRENDFLAGS_TAG",
+      " STATUS_TAG"
+    ],
+    "value_stats": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0
+    }
+  }
+}

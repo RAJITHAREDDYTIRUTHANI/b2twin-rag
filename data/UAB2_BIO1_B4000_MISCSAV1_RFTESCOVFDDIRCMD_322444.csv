@@ -1,0 +1,5 @@
+trueText=s:Exhaust|falseText=s:Injection|range=E:bacnet:BacnetBinaryPv
+Rainforest MiscSAV1_RFTescoVFDDirCmd -   [ ]
+ID, TIMESTAMP, TRENDFLAGS, STATUS, VALUE, TRENDFLAGS_TAG, STATUS_TAG
+701, 2025/09/24 12:57:52, 1, 0, 0, {start}, {ok}
+702, 2025/09/24 13:48:34, 1, 0, 0, {start}, {ok}
