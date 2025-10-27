@@ -55,6 +55,7 @@ desktop.ini
 !requirements_production.txt
 !README*.txt
 !README*.md
+!runtime.txt
 
 # Secrets
 .env

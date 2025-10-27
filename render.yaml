@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: biosphere2-rag
+    runtime: python
+    buildCommand: pip install -r requirements_rag.txt
+    startCommand: gunicorn spectacular_rag_web_app:app
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    healthCheckPath: /
