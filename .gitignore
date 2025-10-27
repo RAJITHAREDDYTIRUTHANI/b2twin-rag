@@ -1,25 +1,73 @@
-# Ignore environment and secret files
-.env
-*.env
-
-# Python cache and compiled files
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
 
-# Virtual environments
-.venv/
-env/
+# Virtual Environment
 venv/
+env/
+ENV/
+.venv
 
-# VSCode or IDE configs
+# IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
-# Logs and temp files
+# Database files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Results and outputs
+results/
+*.csv
+!data/*.csv
+analysis_results/
+rainforest_tables/
+*.json
+!requirements*.txt
+
+# Images
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
 *.log
-tmp/
-cache/
+*.txt
+!requirements.txt
+!requirements_rag.txt
+!requirements_production.txt
+!README*.txt
+!README*.md
+
+# Secrets
 .env
-__pycache__/
+*.key
+*.pem
+credentials.json
+config.json
+
+# Test files
+test_*.py
+!test_rag_system.py
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
