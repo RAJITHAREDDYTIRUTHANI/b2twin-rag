@@ -8,6 +8,12 @@ import threading
 import time
 from rag_database import Biosphere2RAGDatabase
 from simple_interface import load_all_sensor_data, create_comprehensive_context
+from anthropic import Anthropic
+from dotenv import load_dotenv
+
+# Load API key
+load_dotenv()
+claude_client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 app = Flask(__name__)
 
@@ -1048,20 +1054,48 @@ def ask_question():
                 'sources': []
             })
         
-        # Use RAG system to answer
-        if hasattr(rag_database, 'answer_with_rag'):
-            answer, sources = rag_database.answer_with_rag(question)
-        else:
-            # Fallback to basic search
-            search_results = rag_database.search(question, top_k=3)
-            sources = search_results
+        # Use RAG system to answer with Claude API
+        # Get RAG context
+        search_results = rag_database.search(question, top_k=5)
+        sources = search_results
+        
+        if search_results:
+            # Build context from search results
+            rag_context = rag_database.get_context_for_question(question, max_context_length=3000)
             
-            # Simple answer generation (you could enhance this with Claude API)
-            if search_results:
+            # Enhanced prompt with RAG context
+            prompt = f"""You are a Biosphere 2 environmental analyst with access to advanced RAG (Retrieval-Augmented Generation) capabilities.
+
+RELEVANT CONTEXT FROM RAG DATABASE:
+{rag_context}
+
+USER QUESTION: {question}
+
+RULES:
+- Answer in 1-3 sentences maximum
+- Use specific numbers from the RAG context when available
+- Be direct and actionable
+- If data is missing, say "No [specific data] available"
+- Focus on what the RAG context shows
+- Cite specific sensor readings or statistics when relevant
+"""
+            
+            try:
+                # Get answer from Claude with RAG context
+                response = claude_client.messages.create(
+                    model="claude-3-5-sonnet",  # Current model name (without date suffix)
+                    max_tokens=300,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                answer = response.content[0].text
+            except Exception as e:
+                print(f"[ERROR] Claude API call failed: {e}")
+                # Fallback to simple answer
                 answer = f"Based on the sensor data, I found {len(search_results)} relevant sources. "
                 answer += f"The top result shows: {search_results[0]['content'][:200]}..."
-            else:
-                answer = "I couldn't find specific information about that in the sensor data."
+                answer += f"\n\n(Note: AI enhancement unavailable - {str(e)})"
+        else:
+            answer = "I couldn't find specific information about that in the sensor data. Please try rephrasing your question."
         
         return jsonify({
             'answer': answer,
@@ -1086,4 +1120,6 @@ if __name__ == '__main__':
     
     # Start Flask app
     app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
+
+
 
