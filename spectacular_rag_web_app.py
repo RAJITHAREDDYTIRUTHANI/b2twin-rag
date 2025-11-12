@@ -1083,7 +1083,7 @@ RULES:
             try:
                 # Get answer from Claude with RAG context
                 response = claude_client.messages.create(
-                    model="claude-3-5-sonnet",  # Current model name (without date suffix)
+                    model="claude-3-5-sonnet-20241022",  # Anthropic Claude model
                     max_tokens=300,
                     messages=[{"role": "user", "content": prompt}]
                 )
