@@ -597,7 +597,7 @@ def ask_question_endpoint():
             # Get answer from Claude with RAG context
             from simple_interface import client
             response = client.messages.create(
-                model="claude-3-5-sonnet",
+                model="claude-3-5-sonnet-20241022",
                 max_tokens=200,
                 messages=[{"role": "user", "content": prompt}]
             )

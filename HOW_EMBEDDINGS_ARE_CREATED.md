@@ -458,3 +458,4 @@ embedding = self.embedding_model.encode(chunk['content'])
 The numbers capture semantic meaning in a way that similar texts get similar numbers!
 
 
+

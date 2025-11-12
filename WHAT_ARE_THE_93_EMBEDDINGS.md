@@ -255,3 +255,4 @@ conn.close()
 This will show you exactly what your 93 embeddings represent!
 
 
+

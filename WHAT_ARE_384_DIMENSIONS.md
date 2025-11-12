@@ -252,3 +252,4 @@ Groups them together because they're semantically related
 **Think of it like a fingerprint** - each text has a unique 384-number "fingerprint" that captures its meaning!
 
 
+

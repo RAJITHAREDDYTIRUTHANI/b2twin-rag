@@ -372,3 +372,4 @@ index = faiss.IndexFlatIP(dimension)
 **This RAG system transforms raw sensor data into an intelligent, queryable knowledge base that provides accurate, verifiable answers about Biosphere 2 environmental conditions.**
 
 
+

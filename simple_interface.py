@@ -124,7 +124,7 @@ def ask_question(question, context_data):
     
     try:
         response = client.messages.create(
-            model="claude-3-5-sonnet",
+            model="claude-3-5-sonnet-20241022",
             max_tokens=200,  # Much shorter responses
             messages=[{"role": "user", "content": prompt}]
         )
