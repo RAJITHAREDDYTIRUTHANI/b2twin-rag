@@ -305,3 +305,6 @@ gunicorn -w 4 -b 0.0.0.0:5000 spectacular_rag_web_app:app
 
 *This project demonstrates advanced AI/ML capabilities, modern web development, and sophisticated data analysis techniques for environmental research applications.*
 
+
+
+

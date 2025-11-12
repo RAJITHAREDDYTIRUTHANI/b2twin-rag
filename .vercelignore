@@ -1,0 +1,60 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Database files (too large for Vercel)
+*.db
+*.sqlite
+*.sqlite3
+
+# Data files (too large)
+data/
+*.csv
+
+# Test files
+test_*.py
+*_test.py
+
+# Documentation
+*.md
+!README.md
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Deployment files for other platforms
+render.yaml
+Procfile
+Dockerfile
+deploy.sh
+
+# Results and analysis
+results/
+analysis_results/
+rainforest_tables/
+
+# Images
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Git
+.git/
+.gitignore
+
