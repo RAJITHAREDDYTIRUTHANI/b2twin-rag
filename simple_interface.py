@@ -9,99 +9,158 @@ load_dotenv()
 client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 def load_all_sensor_data():
-    """Load and analyze all 6 CSV files to create comprehensive context"""
-    data_files = {
-        "temperature": "data/UAB2_BIO1_B4000_MISCSAV1_RFTESCOSUPTMP_327662.csv",
-        "fan_direction": "data/UAB2_BIO1_B4000_MISCSAV1_RFTESCOVFDDIRCMD_322444.csv", 
-        "fan_output": "data/UAB2_BIO1_B4000_MISCSAV1_RFTESCOVFDOUT_317704.csv",
-        "fan_status": "data/UAB2_BIO1_B4000_MISCSAV1_RFTESCOVFDSTS_310102.csv",
-        "valve_command": "data/UAB2_BIO1_B4000_MISCSAV1_RFTESCOVLVCMD_314109.csv",
-        "valve_limit": "data/UAB2_BIO1_B4000_MISCSAV1_RFTESCOVLVLMTSW_305745.csv"
-    }
+    """Load and analyze all CSV files in the data folder automatically"""
+    import glob
+    
+    # Find all CSV files in data folder
+    csv_files = glob.glob("data/*.csv")
+    
+    if not csv_files:
+        print("[WARNING] No CSV files found in data folder!")
+        return {}
+    
+    print(f"[INFO] Found {len(csv_files)} CSV files in data folder")
     
     all_data = {}
     
-    for sensor_type, file_path in data_files.items():
+    for file_path in sorted(csv_files):
         try:
-            print(f"Loading {sensor_type}...")
-            # Load CSV with proper encoding
+            # Extract sensor name from filename
+            filename = os.path.basename(file_path)
+            # Use filename without extension as sensor identifier
+            sensor_id = filename.replace('.csv', '').lower()
+            
+            # Try to extract a more readable name from the file
+            # Read first line to get sensor description
             try:
-                df = pd.read_csv(file_path, encoding='utf-8', skiprows=2)
-            except UnicodeDecodeError:
-                df = pd.read_csv(file_path, encoding='latin-1', skiprows=2)
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    first_line = f.readline().strip()
+                    second_line = f.readline().strip()
+            except:
+                first_line = ""
+                second_line = ""
+            
+            print(f"Loading {sensor_id}...")
+            
+            # Load CSV with proper encoding and error handling
+            df = None
+            try:
+                # Try with UTF-8 encoding first
+                try:
+                    # Use on_bad_lines='skip' for pandas >= 1.3, or error_bad_lines=False for older versions
+                    try:
+                        df = pd.read_csv(file_path, encoding='utf-8', skiprows=2, on_bad_lines='skip', engine='python')
+                    except TypeError:
+                        # Fallback for older pandas versions
+                        df = pd.read_csv(file_path, encoding='utf-8', skiprows=2, error_bad_lines=False, warn_bad_lines=False, engine='python')
+                except UnicodeDecodeError:
+                    # Try with latin-1 encoding
+                    try:
+                        df = pd.read_csv(file_path, encoding='latin-1', skiprows=2, on_bad_lines='skip', engine='python')
+                    except TypeError:
+                        df = pd.read_csv(file_path, encoding='latin-1', skiprows=2, error_bad_lines=False, warn_bad_lines=False, engine='python')
+            except Exception as parse_error:
+                # If all else fails, try with quotechar to handle commas in fields
+                try:
+                    df = pd.read_csv(file_path, encoding='utf-8', skiprows=2, quotechar='"', on_bad_lines='skip', engine='python')
+                except:
+                    try:
+                        df = pd.read_csv(file_path, encoding='latin-1', skiprows=2, quotechar='"', on_bad_lines='skip', engine='python')
+                    except:
+                        raise parse_error
+            
+            if df is None or len(df) == 0:
+                raise ValueError("Failed to load CSV or file is empty")
             
             # Get basic statistics
             stats = {
+                "filename": filename,
+                "sensor_description": second_line if second_line else first_line,
                 "total_readings": len(df),
-                "time_range": f"{df[' TIMESTAMP'].iloc[0]} to {df[' TIMESTAMP'].iloc[-1]}" if len(df) > 0 else "No data",
+                "time_range": f"{df[' TIMESTAMP'].iloc[0]} to {df[' TIMESTAMP'].iloc[-1]}" if len(df) > 0 and ' TIMESTAMP' in df.columns else "No data",
                 "sample_data": df.head(5).to_dict('records') if len(df) > 0 else [],
                 "columns": list(df.columns)
             }
             
             # Add value statistics for numeric columns
             if ' VALUE' in df.columns:
-                stats["value_stats"] = {
-                    "min": float(df[' VALUE'].min()) if len(df) > 0 else None,
-                    "max": float(df[' VALUE'].max()) if len(df) > 0 else None,
-                    "mean": float(df[' VALUE'].mean()) if len(df) > 0 else None
-                }
+                # Convert to numeric, coercing errors to NaN
+                numeric_values = pd.to_numeric(df[' VALUE'], errors='coerce')
+                numeric_values = numeric_values.dropna()  # Remove NaN values
+                
+                if len(numeric_values) > 0:
+                    stats["value_stats"] = {
+                        "min": float(numeric_values.min()),
+                        "max": float(numeric_values.max()),
+                        "mean": float(numeric_values.mean())
+                    }
+                else:
+                    stats["value_stats"] = {
+                        "min": None,
+                        "max": None,
+                        "mean": None
+                    }
             
-            all_data[sensor_type] = stats
-            print(f"[OK] {sensor_type}: {len(df)} readings")
+            all_data[sensor_id] = stats
+            print(f"[OK] {sensor_id}: {len(df)} readings")
             
         except Exception as e:
             print(f"[ERROR] Loading {file_path}: {e}")
-            all_data[sensor_type] = {"error": str(e)}
+            import traceback
+            traceback.print_exc()
+            all_data[sensor_id] = {"error": str(e), "filename": filename}
     
+    print(f"[SUCCESS] Loaded {len(all_data)} sensor files")
     return all_data
 
 def create_comprehensive_context(all_data):
     """Create comprehensive context from all sensor data"""
+    total_sensors = len(all_data)
+    total_readings = sum(data.get('total_readings', 0) for data in all_data.values() if 'error' not in data)
+    
     context_summary = f"""
     BIOSPHERE 2 ENVIRONMENTAL CONTROL SYSTEM ANALYSIS
     
-    This analysis covers 6 different sensor systems monitoring the Rainforest MiscSAV1 area:
+    This analysis covers {total_sensors} different sensor systems across multiple areas:
+    - Total sensors: {total_sensors}
+    - Total readings: {total_readings:,}
     
-    1. TEMPERATURE SENSOR (RFTESCOSUPTMP):
-       - Units: Fahrenheit
-       - Readings: {all_data.get('temperature', {}).get('total_readings', 'N/A')}
-       - Time Range: {all_data.get('temperature', {}).get('time_range', 'N/A')}
-       - Value Range: {all_data.get('temperature', {}).get('value_stats', {}).get('min', 'N/A')}°F to {all_data.get('temperature', {}).get('value_stats', {}).get('max', 'N/A')}°F
-    
-    2. FAN DIRECTION COMMAND (RFTESCOVFDDIRCMD):
-       - Control: Exhaust/Injection modes
-       - Readings: {all_data.get('fan_direction', {}).get('total_readings', 'N/A')}
-       - Time Range: {all_data.get('fan_direction', {}).get('time_range', 'N/A')}
-    
-    3. FAN OUTPUT CONTROL (RFTESCOVFDOUT):
-       - Control: ON/OFF states
-       - Readings: {all_data.get('fan_output', {}).get('total_readings', 'N/A')}
-       - Time Range: {all_data.get('fan_output', {}).get('time_range', 'N/A')}
-    
-    4. FAN STATUS MONITORING (RFTESCOVFDSTS):
-       - Status: ON/OFF states
-       - Readings: {all_data.get('fan_status', {}).get('total_readings', 'N/A')}
-       - Time Range: {all_data.get('fan_status', {}).get('time_range', 'N/A')}
-    
-    5. VALVE COMMAND CONTROL (RFTESCOVLVCMD):
-       - Control: ON/OFF commands
-       - Readings: {all_data.get('valve_command', {}).get('total_readings', 'N/A')}
-       - Time Range: {all_data.get('valve_command', {}).get('time_range', 'N/A')}
-    
-    6. VALVE LIMIT SWITCH (RFTESCOVLVLMTSW):
-       - Status: CLOSED/OPEN positions
-       - Readings: {all_data.get('valve_limit', {}).get('total_readings', 'N/A')}
-       - Time Range: {all_data.get('valve_limit', {}).get('time_range', 'N/A')}
-    
-    SAMPLE DATA FROM EACH SYSTEM:
+    SENSOR SUMMARY:
     """
     
-    # Add sample data from each system
-    for sensor_type, data in all_data.items():
-        if 'sample_data' in data and data['sample_data']:
-            context_summary += f"\n{sensor_type.upper()} SAMPLE:\n"
-            for i, record in enumerate(data['sample_data'][:3]):  # First 3 records
+    # Group sensors by type/area for better organization
+    sensor_list = []
+    for sensor_id, data in sorted(all_data.items()):
+        if 'error' in data:
+            continue
+        
+        sensor_desc = data.get('sensor_description', sensor_id)
+        readings = data.get('total_readings', 0)
+        time_range = data.get('time_range', 'Unknown')
+        
+        sensor_info = f"  - {sensor_id}: {sensor_desc}\n"
+        sensor_info += f"    Readings: {readings}, Time Range: {time_range}"
+        
+        if 'value_stats' in data:
+            stats = data['value_stats']
+            if stats.get('min') is not None:
+                sensor_info += f"\n    Value Range: {stats['min']} to {stats['max']} (avg: {stats['mean']:.2f})"
+        
+        sensor_list.append(sensor_info)
+    
+    context_summary += "\n".join(sensor_list)
+    context_summary += "\n\nSAMPLE DATA FROM KEY SENSORS:\n"
+    
+    # Add sample data from first 10 sensors (to avoid too much data)
+    sample_count = 0
+    for sensor_id, data in sorted(all_data.items()):
+        if sample_count >= 10:
+            break
+        if 'error' not in data and 'sample_data' in data and data['sample_data']:
+            context_summary += f"\n{sensor_id.upper()} SAMPLE:\n"
+            for i, record in enumerate(data['sample_data'][:2]):  # First 2 records
                 context_summary += f"  Record {i+1}: {record}\n"
+            sample_count += 1
     
     return context_summary
 
@@ -124,7 +183,7 @@ def ask_question(question, context_data):
     
     try:
         response = client.messages.create(
-            model="claude-3-5-sonnet-20241022",
+            model="claude-3-haiku-20240307",
             max_tokens=200,  # Much shorter responses
             messages=[{"role": "user", "content": prompt}]
         )
@@ -134,7 +193,7 @@ def ask_question(question, context_data):
 
 if __name__ == "__main__":
     print("=== BIOSPHERE 2 SENSOR DATA ANALYSIS ===")
-    print("Loading and analyzing all 6 sensor systems...")
+    print("Loading and analyzing all sensor files in data folder...")
     
     # Load all sensor data
     all_data = load_all_sensor_data()
