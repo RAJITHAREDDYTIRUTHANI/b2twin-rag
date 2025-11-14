@@ -13,7 +13,11 @@ from dotenv import load_dotenv
 
 # Load API key
 load_dotenv()
-claude_client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+api_key = os.getenv("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY")
+if not api_key:
+    print("[WARNING] ANTHROPIC_API_KEY not found in environment variables!")
+    print("[INFO] Please set ANTHROPIC_API_KEY in Vercel/Render environment variables")
+claude_client = Anthropic(api_key=api_key) if api_key else None
 
 app = Flask(__name__)
 
@@ -1202,6 +1206,12 @@ REMEMBER: The data IS there - search harder, look for sensor names with "hum" or
 """
             
             try:
+                if not claude_client:
+                    return jsonify({
+                        'answer': 'Error: ANTHROPIC_API_KEY is not configured. Please set it in your environment variables.',
+                        'sources': sources[:3] if sources else []
+                    })
+                
                 # Get answer from Claude with RAG context
                 response = claude_client.messages.create(
                     model="claude-3-haiku-20240307",  # Anthropic Claude model (Haiku - available with your API key)
