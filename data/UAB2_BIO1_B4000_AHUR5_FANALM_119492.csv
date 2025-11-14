@@ -1,0 +1,8 @@
+trueText=s:ON|falseText=s:OFF|range=E:bacnet:BacnetBinaryPv
+Rainforest AHUR5_FanAlm -   [ ]
+ID, TIMESTAMP, TRENDFLAGS, STATUS, VALUE, TRENDFLAGS_TAG, STATUS_TAG
+2501, 2025/10/03 08:09:29, 0, 128, 1, { }, {unackedAlarm}
+2502, 2025/10/03 08:14:29, 0, 136, 1, { }, {alarm,unackedAlarm}
+2503, 2025/10/03 08:58:07, 0, 128, 0, { }, {unackedAlarm}
+2521, 2025/10/09 02:44:36, 0, 130, 0, { }, {fault,unackedAlarm}
+2522, 2025/10/09 02:44:53, 0, 128, 0, { }, {unackedAlarm}
