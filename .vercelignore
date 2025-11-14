@@ -48,14 +48,17 @@ results/
 analysis_results/
 rainforest_tables/
 
-# Images
+# Images (but allow static folder for logo)
 *.png
 *.jpg
 *.jpeg
 *.gif
+!static/
 
 # Git
 .git/
 .gitignore
+
+
 
 
